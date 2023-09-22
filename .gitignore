@@ -51,6 +51,7 @@ SourceArt/**/*.tga
 Binaries/*
 Plugins/*/Binaries/*
 Plugins/vc-ue-extensions/
+Content/__External*__/
 Content/StarterContent/
 Platforms/
 
@@ -77,3 +78,7 @@ Plugins/*/Intermediate/*
 
 # Cache files for the editor to use
 DerivedDataCache/*
+
+# LFS content
+Content/Paragon*/
+Content/Example*/
