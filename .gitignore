@@ -52,6 +52,7 @@ Binaries/*
 Plugins/*/Binaries/*
 Plugins/vc-ue-extensions/
 Content/StarterContent/
+Platforms/
 
 # Builds
 Build/*
