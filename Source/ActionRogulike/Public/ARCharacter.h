@@ -25,10 +25,14 @@ private:
 	UInputAction* input_jump;
 	UPROPERTY(EditDefaultsOnly, Category = "Input")
 	UInputAction* input_primary_attack;
+	UPROPERTY(EditDefaultsOnly, Category = "Input")
+	UInputAction* input_interact;
 	UPROPERTY(VisibleAnywhere)
 	class USpringArmComponent* spring_arm;
 	UPROPERTY(VisibleAnywhere)
 	class UCameraComponent* camera;
+	UPROPERTY(VisibleAnywhere)
+	class UARInteractComponent* interact_comp;
 
 public:
 	// Sets default values for this character's properties
@@ -48,5 +52,6 @@ private:
 	void Move(const struct FInputActionInstance& Instance);
 	void LookMouse(const struct FInputActionInstance& Instance);
 	void PrimaryAttack(const struct FInputActionInstance& Instance);
+	void Interact(const struct FInputActionInstance& Instance);
 
 };

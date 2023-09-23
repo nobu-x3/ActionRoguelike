@@ -8,6 +8,7 @@
 #include <EnhancedInputComponent.h>
 #include <EnhancedInputSubsystems.h>
 #include "ActionRogulike/ARMagicProjectile.h"
+#include "ARInteractComponent.h"
 
 // Sets default values
 AARCharacter::AARCharacter()
@@ -21,6 +22,7 @@ AARCharacter::AARCharacter()
 	camera->SetupAttachment(spring_arm);
 	GetCharacterMovement()->bOrientRotationToMovement = true;
 	bUseControllerRotationYaw = false;
+	interact_comp = CreateDefaultSubobject<UARInteractComponent>("InteractComp");
 }
 
 // Called when the game starts or when spawned
@@ -54,6 +56,11 @@ void AARCharacter::PrimaryAttack(const FInputActionInstance& Instance)
 	spawn_params.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 	spawn_params.Instigator = this;
 	GetWorld()->SpawnActor<AActor>(primary_projectile_class, spawn_tr, spawn_params);
+}
+
+void AARCharacter::Interact(const FInputActionInstance& Instance)
+{
+	interact_comp->PrimaryInteract();
 }
 
 // Called every frame
@@ -90,5 +97,6 @@ void AARCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 	input_comp->BindAction(input_move, ETriggerEvent::Triggered, this, &AARCharacter::Move);
 	input_comp->BindAction(input_look_mouse, ETriggerEvent::Triggered, this, &AARCharacter::LookMouse);
 	input_comp->BindAction(input_primary_attack, ETriggerEvent::Started, this, &AARCharacter::PrimaryAttack);
+	input_comp->BindAction(input_interact, ETriggerEvent::Started, this, &AARCharacter::Interact);
 }
 
