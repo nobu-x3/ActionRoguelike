@@ -6,13 +6,23 @@
 #include "GameFramework/Character.h"
 #include "ARCharacter.generated.h"
 
-
+class UInputAction;
 UCLASS()
 class ACTIONROGULIKE_API AARCharacter : public ACharacter
 {
 	GENERATED_BODY()
 
 protected:
+	UPROPERTY(EditDefaultsOnly, Category = "Input")
+	class UInputMappingContext* default_input_mapping;
+	UPROPERTY(EditDefaultsOnly, Category = "Input")
+	UInputAction* input_move;
+	UPROPERTY(EditDefaultsOnly, Category = "Input")
+	UInputAction* input_look_mouse;
+	UPROPERTY(EditDefaultsOnly, Category = "Input")
+	UInputAction* input_jump;
+	UPROPERTY(EditDefaultsOnly, Category = "Input")
+	UInputAction* input_primary_attack;
 	UPROPERTY(VisibleAnywhere)
 	class USpringArmComponent* spring_arm;
 	UPROPERTY(VisibleAnywhere)
@@ -27,12 +37,13 @@ protected:
 	virtual void BeginPlay() override;
 
 public:
-	void MoveForward(float val);
-	void MoveRight(float val);
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+private:
+	void Move(const struct FInputActionInstance& Instance);
+	void LookMouse(const struct FInputActionInstance& Instance);
 
 };

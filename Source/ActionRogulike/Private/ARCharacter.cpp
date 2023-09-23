@@ -5,8 +5,8 @@
 #include <Camera/CameraComponent.h>
 #include <GameFramework/SpringArmComponent.h>
 #include <GameFramework/CharacterMovementComponent.h>
-
-
+#include "EnhancedInputComponent.h"
+#include "EnhancedInputSubsystems.h"
 // Sets default values
 AARCharacter::AARCharacter()
 {
@@ -27,21 +27,22 @@ void AARCharacter::BeginPlay()
 	Super::BeginPlay();
 }
 
-void AARCharacter::MoveForward(float val)
+void AARCharacter::Move(const FInputActionInstance& Instance)
 {
 	auto rot = GetControlRotation();
 	rot.Pitch = 0.0f;
 	rot.Roll = 0.0f;
-	AddMovementInput(rot.Vector(), val);
+	const FVector2D val = Instance.GetValue().Get<FVector2D>();
+	AddMovementInput(rot.Vector(), val.Y);
+	const FVector right_vec = FRotationMatrix(rot).GetScaledAxis(EAxis::Y);
+	AddMovementInput(right_vec, val.X);
 }
 
-void AARCharacter::MoveRight(float val)
+void AARCharacter::LookMouse(const FInputActionInstance& Instance)
 {
-	auto rot = GetControlRotation();
-	rot.Pitch = 0.0f;
-	rot.Roll = 0.0f;
-	auto right_vec = FRotationMatrix(rot).GetScaledAxis(EAxis::Y);
-	AddMovementInput(right_vec, val);
+	const FVector2D val = Instance.GetValue().Get<FVector2D>();
+	AddControllerPitchInput(val.Y);
+	AddControllerYawInput(val.X);
 }
 
 // Called every frame
@@ -69,9 +70,13 @@ void AARCharacter::Tick(float DeltaTime)
 void AARCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
-	PlayerInputComponent->BindAxis("MoveForward", this, &AARCharacter::MoveForward);
-	PlayerInputComponent->BindAxis("MoveRight", this, &AARCharacter::MoveRight);
-	PlayerInputComponent->BindAxis("LookYaw", this, &APawn::AddControllerYawInput);
-	PlayerInputComponent->BindAxis("LookPitch", this, &APawn::AddControllerPitchInput);
+	const APlayerController* pc = GetController<APlayerController>();
+	const ULocalPlayer* lp = pc->GetLocalPlayer();
+	UEnhancedInputLocalPlayerSubsystem* subsystem = lp->GetSubsystem<UEnhancedInputLocalPlayerSubsystem>();
+	check(subsystem);
+	subsystem->AddMappingContext(default_input_mapping, 0);
+	UEnhancedInputComponent* input_comp = Cast<UEnhancedInputComponent>(PlayerInputComponent);
+	input_comp->BindAction(input_move, ETriggerEvent::Triggered, this, &AARCharacter::Move);
+	input_comp->BindAction(input_look_mouse, ETriggerEvent::Triggered, this, &AARCharacter::LookMouse);
 }
 
