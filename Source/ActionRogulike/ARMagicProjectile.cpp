@@ -11,6 +11,7 @@ AARMagicProjectile::AARMagicProjectile()
 	movement_comp = CreateDefaultSubobject<UProjectileMovementComponent>("Movement Component");
 	sphere_comp = CreateDefaultSubobject<USphereComponent>("Sphere Component");
 	sphere_comp->SetCollisionProfileName("Projectile");
+	sphere_comp->IgnoreActorWhenMoving(GetInstigator(), true);
 	SetRootComponent(sphere_comp);
 	particle_system = CreateDefaultSubobject<UParticleSystemComponent>("Particle Component");
 	particle_system->SetupAttachment(sphere_comp);
@@ -20,6 +21,13 @@ AARMagicProjectile::AARMagicProjectile()
 void AARMagicProjectile::BeginPlay()
 {
 	Super::BeginPlay();
+	sphere_comp->OnComponentHit.AddDynamic(this, &AARMagicProjectile::OnHit);
+}
+
+
+void AARMagicProjectile::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
+{
+	GetWorld()->DestroyActor(this);
 }
 
 // Called every frame

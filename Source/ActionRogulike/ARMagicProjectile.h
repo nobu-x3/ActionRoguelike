@@ -8,7 +8,7 @@ UCLASS()
 class ACTIONROGULIKE_API AARMagicProjectile : public AActor
 {
 	GENERATED_BODY()
-	
+
 public:
 	// Sets default values for this actor's properties
 	AARMagicProjectile();
@@ -20,6 +20,9 @@ protected:
 public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+	UFUNCTION()
+	void OnHit(UPrimitiveComponent* HitComponent,
+		AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
 private:
 	UPROPERTY(EditAnywhere)
 	class UProjectileMovementComponent* movement_comp;
