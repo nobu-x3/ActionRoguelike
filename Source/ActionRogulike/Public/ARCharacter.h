@@ -12,7 +12,9 @@ class ACTIONROGULIKE_API AARCharacter : public ACharacter
 {
 	GENERATED_BODY()
 
-protected:
+private:
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<class AARMagicProjectile> primary_projectile_class;
 	UPROPERTY(EditDefaultsOnly, Category = "Input")
 	class UInputMappingContext* default_input_mapping;
 	UPROPERTY(EditDefaultsOnly, Category = "Input")
@@ -45,5 +47,6 @@ public:
 private:
 	void Move(const struct FInputActionInstance& Instance);
 	void LookMouse(const struct FInputActionInstance& Instance);
+	void PrimaryAttack(const struct FInputActionInstance& Instance);
 
 };

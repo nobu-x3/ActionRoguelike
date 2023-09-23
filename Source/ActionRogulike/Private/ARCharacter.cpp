@@ -5,8 +5,10 @@
 #include <Camera/CameraComponent.h>
 #include <GameFramework/SpringArmComponent.h>
 #include <GameFramework/CharacterMovementComponent.h>
-#include "EnhancedInputComponent.h"
-#include "EnhancedInputSubsystems.h"
+#include <EnhancedInputComponent.h>
+#include <EnhancedInputSubsystems.h>
+#include "ActionRogulike/ARMagicProjectile.h"
+
 // Sets default values
 AARCharacter::AARCharacter()
 {
@@ -41,8 +43,17 @@ void AARCharacter::Move(const FInputActionInstance& Instance)
 void AARCharacter::LookMouse(const FInputActionInstance& Instance)
 {
 	const FVector2D val = Instance.GetValue().Get<FVector2D>();
-	AddControllerPitchInput(val.Y);
+	AddControllerPitchInput(-val.Y);
 	AddControllerYawInput(val.X);
+}
+
+void AARCharacter::PrimaryAttack(const FInputActionInstance& Instance)
+{
+	FTransform spawn_tr = FTransform(GetControlRotation(), GetMesh()->GetSocketLocation("Muzzle_01"));
+	FActorSpawnParameters spawn_params;
+	spawn_params.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+	spawn_params.Instigator = this;
+	GetWorld()->SpawnActor<AActor>(primary_projectile_class, spawn_tr, spawn_params);
 }
 
 // Called every frame
@@ -78,5 +89,6 @@ void AARCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 	UEnhancedInputComponent* input_comp = Cast<UEnhancedInputComponent>(PlayerInputComponent);
 	input_comp->BindAction(input_move, ETriggerEvent::Triggered, this, &AARCharacter::Move);
 	input_comp->BindAction(input_look_mouse, ETriggerEvent::Triggered, this, &AARCharacter::LookMouse);
+	input_comp->BindAction(input_primary_attack, ETriggerEvent::Started, this, &AARCharacter::PrimaryAttack);
 }
 
