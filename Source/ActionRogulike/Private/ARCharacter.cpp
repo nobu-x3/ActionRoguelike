@@ -51,6 +51,13 @@ void AARCharacter::LookMouse(const FInputActionInstance& Instance)
 
 void AARCharacter::PrimaryAttack(const FInputActionInstance& Instance)
 {
+	FTimerHandle anim_delay;
+	GetWorld()->GetTimerManager().SetTimer(anim_delay, this, &AARCharacter::PrimaryAttack_DelayElapsed, 0.25f);
+	PlayAnimMontage(primary_attack_anim);
+}
+
+
+void AARCharacter::PrimaryAttack_DelayElapsed() {
 	FTransform spawn_tr = FTransform(GetControlRotation(), GetMesh()->GetSocketLocation("Muzzle_01"));
 	FActorSpawnParameters spawn_params;
 	spawn_params.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
