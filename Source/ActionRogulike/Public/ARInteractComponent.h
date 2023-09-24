@@ -8,7 +8,7 @@
 
 
 UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
-class ACTIONROGULIKE_API UARInteractComponent : public UActorComponent
+class ACTIONROGULIKE_API UARInteractComponent final : public UActorComponent
 {
 	GENERATED_BODY()
 
