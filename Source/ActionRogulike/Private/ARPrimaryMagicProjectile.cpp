@@ -34,7 +34,7 @@ void AARPrimaryMagicProjectile::OnOverlap(UPrimitiveComponent* OverlappedCompone
 	if (OtherActor) {
 		UAttributeComponent* attrib_comp = Cast<UAttributeComponent>(OtherActor->GetComponentByClass(UAttributeComponent::StaticClass()));
 		if (attrib_comp) {
-			attrib_comp->ApplyHealthDelta(-20.0f);
+			attrib_comp->ApplyHealthDelta(instigator, -20.0f);
 		}
 	}
 	if (ensure(destroy_particle)) {

@@ -11,7 +11,11 @@ UCLASS()
 class ACTIONROGULIKE_API AARCharacter : public ACharacter
 {
 	GENERATED_BODY()
-
+public:
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	class UARInteractComponent* interact_comp;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	class UAttributeComponent* attribute_comp;
 private:
 	UPROPERTY(EditAnywhere, Category = "Attack")
 	TSubclassOf<class AARMagicProjectile> primary_projectile_class;
@@ -37,10 +41,6 @@ private:
 	class USpringArmComponent* spring_arm;
 	UPROPERTY(VisibleAnywhere)
 	class UCameraComponent* camera;
-	UPROPERTY(VisibleAnywhere)
-	class UARInteractComponent* interact_comp;
-	UPROPERTY(VisibleAnywhere)
-	class UAttributeComponent* attribute_comp;
 
 public:
 	// Sets default values for this character's properties

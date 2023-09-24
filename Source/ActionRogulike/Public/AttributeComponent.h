@@ -6,6 +6,7 @@
 #include "Components/ActorComponent.h"
 #include "AttributeComponent.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_FourParams(FOnHealthChanged, AActor*, Instigator, UAttributeComponent*, OwningComp, float, NewHealth, float, Delta);
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class ACTIONROGULIKE_API UAttributeComponent final : public UActorComponent
@@ -17,6 +18,7 @@ protected:
 public:	
 	UAttributeComponent();
 	UFUNCTION(BlueprintCallable)
-	bool ApplyHealthDelta(float delta);
-	// Sets default values for this component's properties
+	bool ApplyHealthDelta(AActor* actor, float delta);
+	UPROPERTY(BlueprintAssignable)
+	FOnHealthChanged OnHealthChanged;
 };

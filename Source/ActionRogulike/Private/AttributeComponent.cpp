@@ -10,8 +10,9 @@ UAttributeComponent::UAttributeComponent()
 	health = 100.f;
 }
 
-bool UAttributeComponent::ApplyHealthDelta(float delta)
+bool UAttributeComponent::ApplyHealthDelta(AActor* Instigator, float delta)
 {
 	health += delta;
+	OnHealthChanged.Broadcast(Instigator, this, health, delta);
 	return true;
 }
