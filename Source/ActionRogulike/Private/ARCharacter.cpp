@@ -58,11 +58,25 @@ void AARCharacter::PrimaryAttack(const FInputActionInstance& Instance)
 
 
 void AARCharacter::PrimaryAttack_DelayElapsed() {
+	AActor* owner = GetOwner();
+	auto cam_tr = camera->GetComponentTransform();
+	FVector end =
+		cam_tr.GetLocation() + (cam_tr.GetRotation().Vector() * 100000.f);
+	FCollisionQueryParams query_params;
+	query_params.AddIgnoredActor(this);
 	FTransform spawn_tr = FTransform(GetControlRotation(), GetMesh()->GetSocketLocation("Muzzle_01"));
+	FHitResult hit;
 	FActorSpawnParameters spawn_params;
 	spawn_params.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 	spawn_params.Instigator = this;
-	GetWorld()->SpawnActor<AActor>(primary_projectile_class, spawn_tr, spawn_params);
+	auto bHit = GetWorld()->LineTraceSingleByChannel(hit, cam_tr.GetLocation(), end, ECC_Visibility, query_params);
+	if (bHit) {
+		auto rot = FRotationMatrix::MakeFromX(hit.ImpactPoint - spawn_tr.GetLocation()).Rotator();
+		GetWorld()->SpawnActor<AActor>(primary_projectile_class, spawn_tr.GetLocation(), rot, spawn_params);
+	}
+	else {
+		GetWorld()->SpawnActor<AActor>(primary_projectile_class, spawn_tr, spawn_params);
+	}
 }
 
 void AARCharacter::Interact(const FInputActionInstance& Instance)
