@@ -5,7 +5,7 @@
 #include "ARBlackholeProjectile.generated.h"
 
 UCLASS()
-class ACTIONROGULIKE_API AARBlackholeProjectile : public AARMagicProjectile
+class ACTIONROGULIKE_API AARBlackholeProjectile final: public AARMagicProjectile
 {
 	GENERATED_BODY()
 	

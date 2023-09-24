@@ -9,6 +9,7 @@
 #include <EnhancedInputSubsystems.h>
 #include "ActionRogulike/ARMagicProjectile.h"
 #include "ARInteractComponent.h"
+#include "AttributeComponent.h"
 
 // Sets default values
 AARCharacter::AARCharacter()
@@ -22,7 +23,8 @@ AARCharacter::AARCharacter()
 	camera->SetupAttachment(spring_arm);
 	GetCharacterMovement()->bOrientRotationToMovement = true;
 	bUseControllerRotationYaw = false;
-	interact_comp = CreateDefaultSubobject<UARInteractComponent>("InteractComp");
+	interact_comp = CreateDefaultSubobject<UARInteractComponent>("Interact component");
+	attribute_comp = CreateDefaultSubobject<UAttributeComponent>("Attribute component");
 }
 
 // Called when the game starts or when spawned
