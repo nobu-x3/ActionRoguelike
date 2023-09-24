@@ -51,9 +51,6 @@ void UARInteractComponent::PrimaryInteract()
 void UARInteractComponent::BeginPlay()
 {
 	Super::BeginPlay();
-
-	// ...
-
 }
 
 

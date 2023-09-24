@@ -21,13 +21,6 @@ AARMagicProjectile::AARMagicProjectile()
 void AARMagicProjectile::BeginPlay()
 {
 	Super::BeginPlay();
-	sphere_comp->OnComponentHit.AddDynamic(this, &AARMagicProjectile::OnHit);
-}
-
-
-void AARMagicProjectile::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
-{
-	GetWorld()->DestroyActor(this);
 }
 
 // Called every frame

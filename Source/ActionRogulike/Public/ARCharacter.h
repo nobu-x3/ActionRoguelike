@@ -16,6 +16,8 @@ private:
 	UPROPERTY(EditAnywhere, Category="Attack")
 	TSubclassOf<class AARMagicProjectile> primary_projectile_class;
 	UPROPERTY(EditAnywhere, Category="Attack")
+	TSubclassOf<class AARMagicProjectile> secondary_projectile_class;
+	UPROPERTY(EditAnywhere, Category="Attack")
 	UAnimMontage* primary_attack_anim;
 	UPROPERTY(EditDefaultsOnly, Category = "Input")
 	class UInputMappingContext* default_input_mapping;
@@ -27,6 +29,8 @@ private:
 	UInputAction* input_jump;
 	UPROPERTY(EditDefaultsOnly, Category = "Input")
 	UInputAction* input_primary_attack;
+	UPROPERTY(EditDefaultsOnly, Category = "Input")
+	UInputAction* input_secondary_attack;
 	UPROPERTY(EditDefaultsOnly, Category = "Input")
 	UInputAction* input_interact;
 	UPROPERTY(VisibleAnywhere)
@@ -54,6 +58,8 @@ private:
 	void Move(const struct FInputActionInstance& Instance);
 	void LookMouse(const struct FInputActionInstance& Instance);
 	void PrimaryAttack(const struct FInputActionInstance& Instance);
+	void SecondaryAttack(const struct FInputActionInstance& Instance);
 	void Interact(const struct FInputActionInstance& Instance);
 	void PrimaryAttack_DelayElapsed();
+	void SecondaryAttack_DelayElapsed();
 };
