@@ -13,9 +13,9 @@ class ACTIONROGULIKE_API AARRewardChest : public AActor, public IARInteractionIn
 	
 private:
 	UPROPERTY(VisibleAnywhere)
-	UStaticMeshComponent* lid;
+	UStaticMeshComponent* Lid;
 	UPROPERTY(VisibleAnywhere)
-	UStaticMeshComponent* body;
+	UStaticMeshComponent* Body;
 
 public:
 	// Sets default values for this actor's properties

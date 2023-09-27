@@ -22,9 +22,9 @@ public:
 	virtual void Tick(float DeltaTime) override;
 protected:
 	UPROPERTY(EditAnywhere)
-	class UProjectileMovementComponent* movement_comp;
+	class UProjectileMovementComponent* MovementComp;
 	UPROPERTY(EditAnywhere)
-	class USphereComponent* sphere_comp;
+	class USphereComponent* SphereComp;
 	UPROPERTY(EditAnywhere)
-	UParticleSystemComponent* particle_system;
+	UParticleSystemComponent* ParticleSystem;
 };

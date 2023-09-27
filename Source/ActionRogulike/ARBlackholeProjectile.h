@@ -11,7 +11,7 @@ class ACTIONROGULIKE_API AARBlackholeProjectile final: public AARMagicProjectile
 	
 public: 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	class URadialForceComponent* radial_force;
+	class URadialForceComponent* RadialForce;
 
 public:
 	// Sets default values for this actor's properties

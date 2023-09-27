@@ -14,7 +14,7 @@ class ACTIONROGULIKE_API UAttributeComponent final : public UActorComponent
 	GENERATED_BODY()
 protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	float health;
+	float Health;
 public:	
 	UAttributeComponent();
 	UFUNCTION(BlueprintCallable)

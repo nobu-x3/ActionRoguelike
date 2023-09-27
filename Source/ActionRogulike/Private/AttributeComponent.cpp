@@ -7,12 +7,12 @@
 // Sets default values for this component's properties
 UAttributeComponent::UAttributeComponent()
 {
-	health = 100.f;
+	Health = 100.f;
 }
 
 bool UAttributeComponent::ApplyHealthDelta(AActor* Instigator, float delta)
 {
-	health += delta;
-	OnHealthChanged.Broadcast(Instigator, this, health, delta);
+	Health += delta;
+	OnHealthChanged.Broadcast(Instigator, this, Health, delta);
 	return true;
 }

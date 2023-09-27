@@ -8,13 +8,13 @@ AARMagicProjectile::AARMagicProjectile()
 {
 	// Set this actor to call Tick() every frame. You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-	movement_comp = CreateDefaultSubobject<UProjectileMovementComponent>("Movement Component");
-	sphere_comp = CreateDefaultSubobject<USphereComponent>("Sphere Component");
-	sphere_comp->SetCollisionProfileName("Projectile");
-	sphere_comp->IgnoreActorWhenMoving(GetInstigator(), true);
-	SetRootComponent(sphere_comp);
-	particle_system = CreateDefaultSubobject<UParticleSystemComponent>("Particle Component");
-	particle_system->SetupAttachment(sphere_comp);
+	MovementComp = CreateDefaultSubobject<UProjectileMovementComponent>("Movement Component");
+	SphereComp = CreateDefaultSubobject<USphereComponent>("Sphere Component");
+	SphereComp->SetCollisionProfileName("Projectile");
+	SphereComp->IgnoreActorWhenMoving(GetInstigator(), true);
+	SetRootComponent(SphereComp);
+	ParticleSystem = CreateDefaultSubobject<UParticleSystemComponent>("Particle Component");
+	ParticleSystem->SetupAttachment(SphereComp);
 }
 
 // Called when the game starts or when spawned

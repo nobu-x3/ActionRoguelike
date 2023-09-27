@@ -20,7 +20,7 @@ void UARInteractComponent::PrimaryInteract()
 	FVector eye_loc;
 	FRotator eye_rot;
 	owner->GetActorEyesViewPoint(eye_loc, eye_rot);
-	FVector end = eye_loc + (eye_rot.Vector() * range);
+	FVector end = eye_loc + (eye_rot.Vector() * Range);
 	FCollisionObjectQueryParams query_params;
 	query_params.AddObjectTypesToQuery(ECC_WorldDynamic);
 	TArray<FHitResult> hits;

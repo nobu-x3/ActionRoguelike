@@ -5,15 +5,15 @@ AARRewardChest::AARRewardChest()
 {
 	// Set this actor to call Tick() every frame. You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-	body = CreateDefaultSubobject<UStaticMeshComponent>("Body");
-	SetRootComponent(body);
-	lid = CreateDefaultSubobject<UStaticMeshComponent>("Lid");
-	lid->SetupAttachment(body);
+	Body = CreateDefaultSubobject<UStaticMeshComponent>("Body");
+	SetRootComponent(Body);
+	Lid = CreateDefaultSubobject<UStaticMeshComponent>("Lid");
+	Lid->SetupAttachment(Body);
 }
 
 void AARRewardChest::Interact_Implementation(APawn* instigator)
 {
-	lid->SetRelativeRotation(FRotator(110.f, 0.f, 0.f));
+	Lid->SetRelativeRotation(FRotator(110.f, 0.f, 0.f));
 }
 
 // Called when the game starts or when spawned

@@ -19,7 +19,7 @@ public:
 
 private:
 	UPROPERTY(EditAnywhere)
-	float range;
+	float Range;
 
 protected:
 	// Called when the game starts

@@ -6,9 +6,9 @@ AARBlackholeProjectile::AARBlackholeProjectile()
 {
 	// Set this actor to call Tick() every frame. You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-	radial_force = CreateDefaultSubobject<URadialForceComponent>("RadialForce");
-	radial_force->bIgnoreOwningActor = true;
-	sphere_comp->SetCollisionResponseToChannel(ECC_Pawn, ECR_Ignore);
+	RadialForce = CreateDefaultSubobject<URadialForceComponent>("RadialForce");
+	RadialForce->bIgnoreOwningActor = true;
+	SphereComp->SetCollisionResponseToChannel(ECC_Pawn, ECR_Ignore);
 }
 
 // Called when the game starts or when spawned
