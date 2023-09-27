@@ -31,6 +31,7 @@ AARCharacter::AARCharacter()
 void AARCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+	AttributeComp->OnHealthChanged.AddDynamic(this, &AARCharacter::OnHealthChanged);
 }
 
 void AARCharacter::Move(const FInputActionInstance& Instance)
@@ -108,6 +109,13 @@ void AARCharacter::SecondaryAttack_DelayElapsed()
 	}
 	else {
 		GetWorld()->SpawnActor<AActor>(SecondaryProjectileClass, spawn_tr, spawn_params);
+	}
+}
+
+void AARCharacter::OnHealthChanged(AActor* HealthChangeInstigator, UAttributeComponent* OwningComp, float NewHealth, float Delta)
+{
+	if (Delta < 0) {
+		GetMesh()->SetScalarParameterValueOnMaterials("HitTimestamp", GetWorld()->TimeSeconds);
 	}
 }
 

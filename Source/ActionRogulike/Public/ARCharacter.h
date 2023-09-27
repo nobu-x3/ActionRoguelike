@@ -65,4 +65,6 @@ private:
 	void Interact(const struct FInputActionInstance& Instance);
 	void PrimaryAttack_DelayElapsed();
 	void SecondaryAttack_DelayElapsed();
+	UFUNCTION()
+	void OnHealthChanged(AActor* HealthChangeInstigator, class UAttributeComponent* OwningComp, float NewHealth, float Delta);
 };
