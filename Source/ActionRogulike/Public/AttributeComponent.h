@@ -15,10 +15,13 @@ class ACTIONROGULIKE_API UAttributeComponent final : public UActorComponent
 protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	float Health;
+	bool bIsAlive;
 public:	
 	UAttributeComponent();
 	UFUNCTION(BlueprintCallable)
 	bool ApplyHealthDelta(AActor* actor, float delta);
 	UPROPERTY(BlueprintAssignable)
 	FOnHealthChanged OnHealthChanged;
+	UFUNCTION(BlueprintCallable)
+	bool IsAlive() const;
 };

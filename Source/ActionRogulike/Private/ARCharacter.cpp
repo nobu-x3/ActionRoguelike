@@ -1,6 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
-
 #include "ARCharacter.h"
 #include <Camera/CameraComponent.h>
 #include <GameFramework/SpringArmComponent.h>
@@ -27,10 +24,9 @@ AARCharacter::AARCharacter()
 	AttributeComp = CreateDefaultSubobject<UAttributeComponent>("Attribute component");
 }
 
-// Called when the game starts or when spawned
-void AARCharacter::BeginPlay()
+void AARCharacter::PostInitializeComponents()
 {
-	Super::BeginPlay();
+	Super::PostInitializeComponents();
 	AttributeComp->OnHealthChanged.AddDynamic(this, &AARCharacter::OnHealthChanged);
 }
 
@@ -65,7 +61,6 @@ void AARCharacter::SecondaryAttack(const FInputActionInstance& Instance)
 	GetWorld()->GetTimerManager().SetTimer(anim_delay, this, &AARCharacter::SecondaryAttack_DelayElapsed, 0.25f);
 	PlayAnimMontage(PrimaryAttackAnim);
 }
-
 
 void AARCharacter::PrimaryAttack_DelayElapsed() {
 	AActor* owner = GetOwner();
@@ -114,8 +109,13 @@ void AARCharacter::SecondaryAttack_DelayElapsed()
 
 void AARCharacter::OnHealthChanged(AActor* HealthChangeInstigator, UAttributeComponent* OwningComp, float NewHealth, float Delta)
 {
+	if (!AttributeComp->IsAlive()) return;
 	if (Delta < 0) {
 		GetMesh()->SetScalarParameterValueOnMaterials("HitTimestamp", GetWorld()->TimeSeconds);
+	}
+	if (NewHealth <= 0) {
+		APlayerController* PC = Cast<APlayerController>(GetController());
+		DisableInput(PC);
 	}
 }
 

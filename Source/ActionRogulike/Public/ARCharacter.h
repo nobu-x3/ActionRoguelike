@@ -47,10 +47,6 @@ public:
 	// Sets default values for this character's properties
 	AARCharacter();
 
-protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
-
 public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -65,6 +61,7 @@ private:
 	void Interact(const struct FInputActionInstance& Instance);
 	void PrimaryAttack_DelayElapsed();
 	void SecondaryAttack_DelayElapsed();
+	void PostInitializeComponents() override;
 	UFUNCTION()
 	void OnHealthChanged(AActor* HealthChangeInstigator, class UAttributeComponent* OwningComp, float NewHealth, float Delta);
 };
