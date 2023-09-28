@@ -1,5 +1,6 @@
 #include "ARMagicProjectile.h"
 #include <Components/SphereComponent.h>
+#include <Components/AudioComponent.h>
 #include <GameFramework/ProjectileMovementComponent.h>
 #include <Particles/ParticleSystemComponent.h>
 
@@ -15,6 +16,7 @@ AARMagicProjectile::AARMagicProjectile()
 	SetRootComponent(SphereComp);
 	ParticleSystem = CreateDefaultSubobject<UParticleSystemComponent>("Particle Component");
 	ParticleSystem->SetupAttachment(SphereComp);
+	AudioComp = CreateDefaultSubobject<UAudioComponent>("Audio Component");
 }
 
 // Called when the game starts or when spawned

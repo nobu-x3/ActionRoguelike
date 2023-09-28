@@ -26,6 +26,9 @@ void AARPrimaryMagicProjectile::OnOverlap(UPrimitiveComponent* OverlappedCompone
 	if (ensure(ParticleOnDestroy)) {
 		UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ParticleOnDestroy, SweepResult.ImpactPoint, FRotator::ZeroRotator, FVector::OneVector, true, EPSCPoolMethod::AutoRelease);
 	}
+	if (ensure(ImpactSound)) {
+		UGameplayStatics::PlaySoundAtLocation(GetWorld(), ImpactSound, SweepResult.ImpactPoint);
+	}
 	GetWorld()->DestroyActor(this);
 }
 

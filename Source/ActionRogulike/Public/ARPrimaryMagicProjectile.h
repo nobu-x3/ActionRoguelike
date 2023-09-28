@@ -17,6 +17,8 @@ class ACTIONROGULIKE_API AARPrimaryMagicProjectile final : public AARMagicProjec
 private:
 	UPROPERTY(EditAnywhere)
 	class UParticleSystem* ParticleOnDestroy;
+	UPROPERTY(EditAnywhere)
+	class USoundBase* ImpactSound;
 public:
 	AARPrimaryMagicProjectile();
 	//UFUNCTION()

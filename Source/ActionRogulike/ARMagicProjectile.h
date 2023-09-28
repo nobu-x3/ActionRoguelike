@@ -27,4 +27,6 @@ protected:
 	class USphereComponent* SphereComp;
 	UPROPERTY(EditAnywhere)
 	UParticleSystemComponent* ParticleSystem;
+	UPROPERTY(EditAnywhere)
+	class UAudioComponent* AudioComp;
 };
